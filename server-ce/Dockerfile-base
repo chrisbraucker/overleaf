@@ -55,11 +55,13 @@ RUN ln -sf /usr/local/texlive/${TEXLIVE_DIST}/bin/* /use/local/bin/texlive/ \
       -profile /install-tl-unx/texlive.profile \
       -repository ${TEXLIVE_MIRROR} \
     \
+&&  tlmgr update --self \
 &&  tlmgr install --repository ${TEXLIVE_MIRROR} \
       latexmk \
       texcount \
       synctex \
-    \
+      scheme-full \
+  \
 &&  rm -rf /install-tl-unx \
 &&  ln -sf /usr/local/texlive/${TEXLIVE_DIST}/bin/* /use/local/bin/texlive/
 
