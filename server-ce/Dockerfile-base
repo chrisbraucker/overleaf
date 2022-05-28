@@ -37,9 +37,11 @@ RUN apt-get update \
 #     -f Dockerfile-base -t sharelatex/sharelatex-base .
 ARG TEXLIVE_MIRROR=http://mirror.ctan.org/systems/texlive/tlnet
 
-ENV PATH "${PATH}:/usr/local/texlive/2022/bin/x86_64-linux"
+ENV TEXLIVE_DIST=2022
+ENV PATH "${PATH}:/usr/local/texlive/bin/"
 
-RUN mkdir /install-tl-unx \
+RUN ln -sf /usr/local/texlive/${TEXLIVE_DIST}/bin/* /use/local/bin/texlive/ \
+  &&  mkdir /install-tl-unx \
 &&  curl -sSL \
       ${TEXLIVE_MIRROR}/install-tl-unx.tar.gz \
     | tar -xzC /install-tl-unx --strip-components=1 \
@@ -58,7 +60,8 @@ RUN mkdir /install-tl-unx \
       texcount \
       synctex \
     \
-&&  rm -rf /install-tl-unx
+&&  rm -rf /install-tl-unx \
+&&  ln -sf /usr/local/texlive/${TEXLIVE_DIST}/bin/* /use/local/bin/texlive/
 
 
 # Set up sharelatex user and home directory
