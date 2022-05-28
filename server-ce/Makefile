@@ -8,7 +8,7 @@ MONOREPO_ROOT := ../
 
 build-base:
 	cp .dockerignore $(MONOREPO_ROOT)
-	docker pull $(SHARELATEX_BASE_CACHE) || echo "nothing cached yet"
+#	docker pull $(SHARELATEX_BASE_CACHE) || echo "nothing cached yet"
 	docker build -f Dockerfile-base --pull --cache-from $(SHARELATEX_BASE_CACHE) -t $(SHARELATEX_BASE_TAG) $(MONOREPO_ROOT)
 
 
